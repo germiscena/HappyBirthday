@@ -8,15 +8,56 @@ window.addEventListener('DOMContentLoaded', async () => {
   const btnStart = document.getElementById('btn-start');
   const orientationOverlay = document.getElementById('orientation-overlay');
 
-  // 1. Mobile orientation handling (non-blocking)
+  // Helper to attempt locking orientation to landscape
+  async function lockLandscapeOrientation() {
+    try {
+      if (!document.fullscreenElement) {
+        if (document.documentElement.requestFullscreen) {
+          await document.documentElement.requestFullscreen();
+        } else if (document.documentElement.webkitRequestFullscreen) {
+          await document.documentElement.webkitRequestFullscreen();
+        }
+      }
+    } catch (_) {
+      // Fullscreen not permitted or ignored
+    }
+
+    try {
+      if (screen.orientation && screen.orientation.lock) {
+        await screen.orientation.lock('landscape');
+      } else if (screen.lockOrientation) {
+        screen.lockOrientation('landscape');
+      } else if (screen.webkitLockOrientation) {
+        screen.webkitLockOrientation('landscape');
+      } else if (screen.mozLockOrientation) {
+        screen.mozLockOrientation('landscape');
+      }
+    } catch (_) {
+      // Screen orientation lock not supported (e.g. iOS Safari) or denied
+    }
+  }
+
+  // 1. Mobile orientation check
   function checkOrientation() {
-    // Keep orientationOverlay hidden so player can play seamlessly in both landscape and portrait
-    orientationOverlay.classList.add('hidden');
+    const isPortrait = window.innerHeight > window.innerWidth;
+    const isMobileOrNarrow = window.innerWidth < 1024 || ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+    if (isPortrait && isMobileOrNarrow) {
+      orientationOverlay.classList.remove('hidden');
+    } else {
+      orientationOverlay.classList.add('hidden');
+    }
   }
 
   window.addEventListener('resize', checkOrientation);
   window.addEventListener('orientationchange', checkOrientation);
   checkOrientation();
+
+  // Tapping the orientation card also attempts automatic fullscreen & rotation
+  if (orientationOverlay) {
+    orientationOverlay.addEventListener('click', () => {
+      lockLandscapeOrientation();
+    });
+  }
 
   // 2. Initialize Modals & Sound
   window.soundManager = soundManager;
@@ -69,17 +110,13 @@ window.addEventListener('DOMContentLoaded', async () => {
   }
 
   // 4. Connect Start Button
-  btnStart.addEventListener('click', async () => {
-    // Sound & Fullscreen activation on user gesture
+  btnStart.addEventListener('click', () => {
+    // Sound activation on user gesture
     soundManager.startBgm();
     soundManager.playClick();
 
-    // Request fullscreen on devices supporting it (fallback gracefully if blocked)
-    if (!document.fullscreenElement && document.documentElement.requestFullscreen) {
-      document.documentElement.requestFullscreen().catch(() => {
-        // Fullscreen not allowed or denied by browser - game still works perfectly
-      });
-    }
+    // Attempt automatic switch to fullscreen & landscape orientation immediately on user gesture
+    lockLandscapeOrientation();
 
     // Hide Start Screen with smooth transition
     startScreen.classList.add('hidden');
