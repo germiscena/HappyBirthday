@@ -17,7 +17,7 @@ export class PhotoCardModal {
         <button id="btn-close-photo" class="photo-close-btn" aria-label="Закрыть">&times;</button>
         
         <div class="photo-card-header">
-          <span class="photo-card-tag">📸 СЕМЕЙНЫЙ АЛЬБОМ • 1 СЕНТЯБРЯ 2009</span>
+          <span class="photo-card-tag"><span class="photo-tag-text">📸 СЕМЕЙНЫЙ АЛЬБОМ</span><span class="photo-tag-date"> • 1 СЕНТЯБРЯ 2009</span></span>
         </div>
 
         <div class="photo-card-frame">

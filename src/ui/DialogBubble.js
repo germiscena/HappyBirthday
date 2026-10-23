@@ -22,18 +22,19 @@ export class DialogBubble {
     let clientY = screenY;
     let scaleX = 1;
     let scaleY = 1;
+    let canvasRect = null;
 
     if (canvas) {
-      const rect = canvas.getBoundingClientRect();
+      canvasRect = canvas.getBoundingClientRect();
       const virtW = Config.VIRTUAL_WIDTH || 1024;
       const virtH = Config.VIRTUAL_HEIGHT || 576;
-      scaleX = rect.width / virtW;
-      scaleY = rect.height / virtH;
+      scaleX = canvasRect.width / virtW;
+      scaleY = canvasRect.height / virtH;
 
       // Project character position to screen pixels
-      clientX = rect.left + screenX * scaleX;
-      // Position above the head / badge (with a small margin)
-      clientY = rect.top + screenY * scaleY - 10 * scaleY;
+      clientX = canvasRect.left + screenX * scaleX;
+      // Position above the head / badge (with a comfortable breathable margin)
+      clientY = canvasRect.top + screenY * scaleY - Math.max(12, 16 * scaleY);
     }
 
     const bubble = document.createElement('div');
@@ -55,25 +56,51 @@ export class DialogBubble {
     // Measure actual rendered dimensions to guarantee safe placement without clipping
     const bRect = bubble.getBoundingClientRect();
     const halfW = bRect.width / 2;
-    const padding = 16;
+    const padding = 12;
     const minX = halfW + padding;
     const maxX = window.innerWidth - halfW - padding;
+    const rawTargetX = clientX;
     clientX = Math.max(minX, Math.min(maxX, clientX));
 
-    // Calculate safe top clearance taking into account top HUD, decorations & stage rigs
-    const topSafeMargin = canvas ? Math.max(86, canvas.getBoundingClientRect().top + 84 * scaleY) : 86;
-    const bottomSafeMargin = window.innerHeight - 72;
+    // Dynamic tail offset relative to bubble left edge (keeps arrow pointing directly at character)
+    const bubbleLeft = clientX - halfW;
+    const tailOffset = Math.max(14, Math.min(bRect.width - 14, rawTargetX - bubbleLeft));
+    bubble.style.setProperty('--tail-x', `${Math.round(tailOffset)}px`);
 
-    // Check if positioning above would bump into top HUD or stage ceiling elements
-    if (clientY - bRect.height < topSafeMargin) {
-      if (clientY + bRect.height + 40 < bottomSafeMargin) {
+    // Calculate safe boundaries:
+    // In landscape, HUD ends at ~44 virtual px from canvas top.
+    // In portrait, canvas is vertically centered with letterboxing; the area above canvas is open and safe!
+    const canvasTop = canvasRect ? canvasRect.top : 0;
+    const isPortraitLetterbox = (window.innerHeight > window.innerWidth) && canvasRect && (canvasRect.top > 35);
+    const screenTopBoundary = isPortraitLetterbox
+      ? 12
+      : Math.max(8, Math.round(canvasTop + 44 * scaleY + 6));
+
+    const timelineVirtualY = (Config.VIRTUAL_HEIGHT || 576) - 65;
+    const screenBottomBoundary = isPortraitLetterbox
+      ? (window.innerHeight - 12)
+      : Math.min(
+          window.innerHeight - 8,
+          canvasRect ? Math.round(canvasTop + timelineVirtualY * scaleY - 6) : (window.innerHeight - 60)
+        );
+
+    const bubbleH = bRect.height;
+    const fitsAbove = (clientY - bubbleH >= screenTopBoundary);
+
+    if (fitsAbove) {
+      // Comfortably fits above character head without covering HUD or characters
+      // Default CSS transform is translate(-50%, -100%)
+    } else {
+      // Check if flipping below character works better
+      const feetY = canvasTop + (screenY + 95) * scaleY;
+      const fitsBelow = (feetY + bubbleH + 6 <= screenBottomBoundary);
+      if (fitsBelow) {
         bubble.classList.add('bubble-down');
-        clientY = clientY + (scaleY ? 38 * scaleY : 36);
+        clientY = feetY + 6;
       } else {
-        clientY = topSafeMargin + bRect.height;
+        // Space is tight: clamp vertically within bounds with safety margins
+        clientY = Math.max(screenTopBoundary + bubbleH, Math.min(screenBottomBoundary, clientY));
       }
-    } else if (clientY > bottomSafeMargin) {
-      clientY = bottomSafeMargin;
     }
 
     bubble.style.left = `${Math.round(clientX)}px`;
@@ -115,4 +142,11 @@ export class DialogBubble {
       }, 280);
     }
   }
+}
+
+// Cleanly dismiss speech bubble on orientation change or window resize
+if (typeof window !== 'undefined') {
+  window.addEventListener('resize', () => {
+    DialogBubble.hide(true);
+  });
 }

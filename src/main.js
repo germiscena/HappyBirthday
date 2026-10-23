@@ -8,13 +8,10 @@ window.addEventListener('DOMContentLoaded', async () => {
   const btnStart = document.getElementById('btn-start');
   const orientationOverlay = document.getElementById('orientation-overlay');
 
-  // 1. Mobile orientation check
+  // 1. Mobile orientation handling (non-blocking)
   function checkOrientation() {
-    if (window.innerWidth < 900 && window.innerHeight > window.innerWidth) {
-      orientationOverlay.classList.remove('hidden');
-    } else {
-      orientationOverlay.classList.add('hidden');
-    }
+    // Keep orientationOverlay hidden so player can play seamlessly in both landscape and portrait
+    orientationOverlay.classList.add('hidden');
   }
 
   window.addEventListener('resize', checkOrientation);
