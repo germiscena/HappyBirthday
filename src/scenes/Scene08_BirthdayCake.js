@@ -248,6 +248,7 @@ export class Scene08_BirthdayCake extends BaseScene {
 
     this.cakePromptBadge.on('pointerdown', (e) => {
       if (e && e.stopPropagation) e.stopPropagation();
+      if (e && e.preventDefault) e.preventDefault();
       if (this.candlesExtinguished) {
         this.openCelebrationModal();
       }
@@ -312,9 +313,11 @@ export class Scene08_BirthdayCake extends BaseScene {
     if (!this.candlesExtinguished) return; // Strict lock!
     soundManager.playFanfare();
     soundManager.playSparkle();
-    if (window.birthdayModal) {
-      window.birthdayModal.show();
-    }
+    setTimeout(() => {
+      if (window.birthdayModal) {
+        window.birthdayModal.show();
+      }
+    }, 80);
   }
 
   handleOlesyaClick(e) {

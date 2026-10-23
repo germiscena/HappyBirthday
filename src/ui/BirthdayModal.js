@@ -5,6 +5,9 @@ export class BirthdayModal {
   constructor() {
     this.isOpen = false;
     this.candlesBlown = false;
+    this.isRestartLocked = false;
+    this.restartLockTimer = null;
+    this.lockRemainingSeconds = 0;
     this.createDOM();
   }
 
@@ -112,12 +115,21 @@ export class BirthdayModal {
     btnBlow.addEventListener('click', () => this.blowCandles());
 
     const btnRestart = this.overlay.querySelector('#btn-restart-timeline');
-    btnRestart.addEventListener('click', () => {
+    const onRestartClick = (e) => {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      if (this.isRestartLocked) {
+        return;
+      }
       this.hide();
       if (window.gameApp && window.gameApp.timelineController) {
         window.gameApp.timelineController.setIndex(0);
       }
-    });
+    };
+    btnRestart.addEventListener('click', onRestartClick);
+    btnRestart.addEventListener('touchend', onRestartClick);
   }
 
   show() {
@@ -125,6 +137,9 @@ export class BirthdayModal {
     this.overlay.classList.remove('hidden');
     soundManager.duckBgm(0.3, 0.4);
     soundManager.playSparkle();
+
+    // 5-second lockout on restart button to prevent accidental tap on mobile
+    this.startRestartLockout(5);
 
     const currentScene = window.gameApp?.sceneManager?.currentScene;
     const areCandlesOut = currentScene?.candlesExtinguished;
@@ -152,8 +167,57 @@ export class BirthdayModal {
   hide() {
     this.isOpen = false;
     this.overlay.classList.add('hidden');
+    this.clearRestartLockout();
+    this.isRestartLocked = false;
     soundManager.restoreBgm(0.5);
     soundManager.playClick();
+  }
+
+  startRestartLockout(durationSeconds = 5) {
+    this.clearRestartLockout();
+    this.isRestartLocked = true;
+    this.lockRemainingSeconds = durationSeconds;
+
+    const btnRestart = this.overlay?.querySelector('#btn-restart-timeline');
+    if (!btnRestart) return;
+
+    btnRestart.disabled = true;
+    btnRestart.classList.add('btn-locked');
+    this.updateRestartButtonLabel(btnRestart);
+
+    this.restartLockTimer = setInterval(() => {
+      this.lockRemainingSeconds--;
+      if (this.lockRemainingSeconds <= 0) {
+        this.unlockRestartButton();
+      } else {
+        this.updateRestartButtonLabel(btnRestart);
+      }
+    }, 1000);
+  }
+
+  unlockRestartButton() {
+    this.clearRestartLockout();
+    this.isRestartLocked = false;
+    this.lockRemainingSeconds = 0;
+
+    const btnRestart = this.overlay?.querySelector('#btn-restart-timeline');
+    if (btnRestart) {
+      btnRestart.disabled = false;
+      btnRestart.classList.remove('btn-locked');
+      btnRestart.innerHTML = '<span>↺ Пройти наш путь заново</span>';
+    }
+  }
+
+  clearRestartLockout() {
+    if (this.restartLockTimer) {
+      clearInterval(this.restartLockTimer);
+      this.restartLockTimer = null;
+    }
+  }
+
+  updateRestartButtonLabel(btnRestart) {
+    if (!btnRestart) return;
+    btnRestart.innerHTML = `<span>↺ Пройти наш путь заново (${this.lockRemainingSeconds}с)</span>`;
   }
 
   blowCandles() {
