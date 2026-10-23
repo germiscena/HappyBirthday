@@ -23,7 +23,7 @@ export const Config = {
   // Timeline age milestones
   TIMELINE: [
     { id: 'scene01', age: '0–5 лет', title: 'Родной дом и семья', years: [0, 1, 2, 3, 4, 5] },
-    { id: 'scene01b', age: '7 лет', title: '1 сентября — первый раз в первый класс', years: [7] },
+    { id: 'scene01b', age: '6 лет', title: '1 сентября — первый раз в первый класс', years: [6] },
     { id: 'scene02', age: '8–15 лет', title: 'Школьные годы и музыка', years: [8, 10, 12, 14, 15] },
     { id: 'scene03', age: '16 лет', title: 'Судьбоносная встреча', years: [16] },
     { id: 'scene04', age: '17 лет', title: 'Школьный выпускной (Зелёное платье)', years: [17] },

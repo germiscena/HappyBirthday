@@ -114,8 +114,8 @@ export class Scene07_GraduationDiplomas extends BaseScene {
       dialogueText: '«Ура-а-а! 5 лет в Витебском государственном медицинском университете позади! Наш заветный синий диплом врача у нас в руках! 🎓💙»',
       x: 435,
       y: groundY,
-      width: 62,
-      height: 125,
+      width: 68,
+      height: 138,
       textureUrl: '/assets/characters/scene07_olesya.png'
     });
     this.addChild(this.olesya);

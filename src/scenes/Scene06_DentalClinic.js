@@ -67,8 +67,8 @@ export class Scene06_DentalClinic extends BaseScene {
       dialogueText: '«Держи ротик открытым! 🦷 Зеркальце наготове, приступаем к осмотру! Первая клиническая практика — это так захватывающе! ✨»',
       x: 335,
       y: groundY,
-      width: 102,
-      height: 211,
+      width: 112,
+      height: 232,
       textureUrl: '/assets/characters/scene06_olesya.png'
     });
     this.setupCharacterClick(this.olesya, true);

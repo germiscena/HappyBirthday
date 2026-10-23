@@ -185,8 +185,8 @@ export class Scene07b_GraduationParty extends BaseScene {
       dialogueText: '«Это самый незабываемый выпускной вечер! Музыка, танцы, любимые подруги и море радости! 🥂✨💃»',
       x: 485,
       y: groundY,
-      width: 100,
-      height: 196,
+      width: 110,
+      height: 216,
       textureUrl: '/assets/characters/scene07b_olesya.png'
     });
     this.addChild(this.olesya);

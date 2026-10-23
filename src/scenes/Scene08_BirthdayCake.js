@@ -439,8 +439,8 @@ export class Scene08_BirthdayCake extends BaseScene {
       dialogueText: '«Сначала нужно задуть все свечи на торте и загадать самое заветное желание! 🎂🕯️✨»',
       x: 512,
       y: 518,
-      width: 78,
-      height: 134,
+      width: 86,
+      height: 147,
       textureUrl: '/assets/characters/scene08_olesya.png'
     });
 

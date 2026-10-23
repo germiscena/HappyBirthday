@@ -129,8 +129,8 @@ export class Scene05_MedicalUniversity extends BaseScene {
       dialogueText: '«Мы поступили в Витебский государственный медицинский университет! Белые халаты, шапочки, первая лекция по анатомии... Наша неразлучная пятёрка готова спасать жизни! 🩺✨»',
       x: 480,
       y: 472,
-      width: 69,
-      height: 147,
+      width: 76,
+      height: 162,
       textureUrl: '/assets/characters/scene05_olesya.png'
     });
     this.setupMedStudentClick(this.olesya, true);

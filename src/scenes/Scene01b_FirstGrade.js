@@ -10,7 +10,7 @@ import { PhotoCardModal } from '../ui/PhotoCardModal.js';
 
 export class Scene01b_FirstGrade extends BaseScene {
   constructor() {
-    super('scene01b', '1 сентября — первый раз в первый класс (7 лет)');
+    super('scene01b', '1 сентября — первый раз в первый класс (6 лет)');
     this.characters = [];
     this.sparkles = [];
   }
@@ -59,7 +59,7 @@ export class Scene01b_FirstGrade extends BaseScene {
     this.entityLayer.addChild(this.mom);
     this.characters.push(this.mom);
 
-    // FIRST-GRADER OLESYA (Central figure ~7 years old) (scaled 150%)
+    // FIRST-GRADER OLESYA (Central figure ~6 years old) (scaled 150%)
     this.olesya = new Character({
       name: 'olesya',
       charType: 'olesya_first_grade',

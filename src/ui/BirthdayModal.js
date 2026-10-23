@@ -41,7 +41,7 @@ export class BirthdayModal {
               </div>
               <div class="milestone-row">
                 <span class="m-icon">🔔</span>
-                <span class="m-text"><strong>7 лет:</strong> 1 сентября — первый раз в первый класс, огромные белые банты, пышный букет и памятная фотография всей семьёй перед школой!</span>
+                <span class="m-text"><strong>6 лет:</strong> 1 сентября — первый раз в первый класс, огромные белые банты, пышный букет и памятная фотография всей семьёй перед школой!</span>
               </div>
               <div class="milestone-row">
                 <span class="m-icon">🎶</span>
