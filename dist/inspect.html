@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Inspect Final Clean Characters</title>
+  <style>
+    body { background: #121018; color: #fff; font-family: sans-serif; padding: 20px; }
+    .checkerboard {
+      background-color: #2a2538;
+      background-image: linear-gradient(45deg, #1f1a2c 25%, transparent 25%),
+                        linear-gradient(-45deg, #1f1a2c 25%, transparent 25%),
+                        linear-gradient(45deg, transparent 75%, #1f1a2c 75%),
+                        linear-gradient(-45deg, transparent 75%, #1f1a2c 75%);
+      background-size: 20px 20px;
+      background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+      border: 2px solid #ffd56b;
+      border-radius: 12px;
+      padding: 30px;
+      display: flex;
+      gap: 40px;
+      align-items: flex-end;
+      justify-content: center;
+      min-height: 480px;
+    }
+    .char-box { text-align: center; }
+    .char-box img {
+      max-height: 380px;
+      width: auto;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+      filter: drop-shadow(0 12px 18px rgba(0,0,0,0.6));
+    }
+    .char-box h3 { margin: 12px 0 3px 0; color: #ffd56b; font-size: 16px; font-weight: 700; }
+    .char-box span { font-size: 13px; color: #6be6ff; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <h1>Final Isolated Transparent Characters</h1>
+  <p>100% full bodies from hair to shoes, ZERO text labels, ZERO severed limbs, ZERO background artifacts:</p>
+  
+  <div class="checkerboard">
+    <div class="char-box">
+      <img src="/assets/characters/clean_dad_35.png" />
+      <h3>Папа (35 лет)</h3>
+      <span>140 x 390 px</span>
+    </div>
+    <div class="char-box">
+      <img src="/assets/characters/clean_mom.png" />
+      <h3>Мама</h3>
+      <span>190 x 424 px</span>
+    </div>
+    <div class="char-box">
+      <img src="/assets/characters/clean_sister.png" />
+      <h3>Сестра (5 лет)</h3>
+      <span>130 x 273 px</span>
+    </div>
+    <div class="char-box">
+      <img src="/assets/characters/clean_heroine_toddler.png" />
+      <h3>Маленькая именинница</h3>
+      <span>120 x 226 px</span>
+    </div>
+  </div>
+</body>
+</html>
