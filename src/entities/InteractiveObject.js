@@ -1,4 +1,4 @@
-import { Container, Rectangle } from 'pixi.js';
+import { Container } from 'pixi.js';
 import * as TWEEN from '@tweenjs/tween.js';
 import { Haptics } from '../core/Haptics.js';
 import { DialogBubble } from '../ui/DialogBubble.js';

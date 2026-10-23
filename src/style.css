@@ -133,6 +133,36 @@ html, body {
   transform: translateY(1px) scale(0.98);
 }
 
+.btn-toggle-tv {
+  margin-top: clamp(10px, 1.8vh, 16px);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: clamp(6px, 1.2vh, 9px) clamp(14px, 2.8vw, 20px);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 213, 107, 0.35);
+  border-radius: 20px;
+  color: #e5deef;
+  font-family: inherit;
+  font-size: clamp(11.5px, 2vmin, 13.5px);
+  font-weight: 600;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.22s ease;
+}
+
+.btn-toggle-tv:hover {
+  background: rgba(255, 213, 107, 0.16);
+  border-color: #ffd56b;
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.btn-toggle-tv:active {
+  transform: translateY(1px);
+}
+
 .start-hint {
   margin-top: clamp(12px, 2.4vh, 22px);
   font-size: clamp(11px, min(2.2vw, 2.8vh), 13.5px);
@@ -896,5 +926,201 @@ html, body {
   font-size: clamp(9.5px, 1.8vmin, 12.5px);
   color: #c4b5dc;
   letter-spacing: 0.3px;
+}
+
+/* =========================================
+   TV MODE (10-FOOT UI TYPOGRAPHY & SCALING)
+   Comfortable readability on TV screens (Full HD, 2K, 4K)
+   from typical sofa viewing distances (2.5 - 4 meters).
+   ========================================= */
+
+/* Focus rings for Smart TV Remote / D-pad Navigation */
+.tv-mode :focus-visible,
+:focus-visible {
+  outline: 3px solid #ffd56b !important;
+  outline-offset: 3px !important;
+}
+
+/* --- Start Screen Typography in TV Mode --- */
+.tv-mode .start-content {
+  max-width: min(840px, 90vw);
+  padding: clamp(20px, 3.5vh, 42px) clamp(24px, 4vw, 48px);
+}
+
+.tv-mode .game-title {
+  font-size: clamp(34px, 5.2vmin, 66px);
+  margin-bottom: clamp(6px, 1.4vh, 14px);
+  letter-spacing: clamp(1px, 0.4vw, 3px);
+}
+
+.tv-mode .game-subtitle {
+  font-size: clamp(20px, 3vmin, 36px);
+  margin-bottom: clamp(10px, 1.8vh, 18px);
+}
+
+.tv-mode .game-description {
+  font-size: clamp(16px, 2.2vmin, 26px);
+  margin-bottom: clamp(22px, 3.6vh, 36px);
+  line-height: 1.5;
+}
+
+.tv-mode .btn-start-game {
+  font-size: clamp(18px, 2.5vmin, 28px);
+  padding: clamp(14px, 2.4vh, 20px) clamp(38px, 5.2vw, 64px);
+  border-radius: 40px;
+}
+
+.tv-mode .btn-toggle-tv {
+  font-size: clamp(14px, 1.9vmin, 21px);
+  padding: clamp(8px, 1.4vh, 12px) clamp(18px, 2.8vw, 28px);
+  background: rgba(255, 213, 107, 0.22);
+  border-color: #ffd56b;
+  color: #ffd56b;
+  box-shadow: 0 0 16px rgba(255, 213, 107, 0.35);
+}
+
+.tv-mode .start-hint {
+  font-size: clamp(14px, 1.9vmin, 21px);
+  margin-top: clamp(14px, 2.2vh, 22px);
+}
+
+/* --- In-Game Dialog Bubbles in TV Mode --- */
+.tv-mode .dialog-bubble {
+  font-size: clamp(17px, 2.1vmin, 36px);
+  line-height: 1.46;
+  padding: clamp(12px, 1.5vmin, 22px) clamp(18px, 2.4vmin, 34px);
+  border-radius: clamp(16px, 2vmin, 26px);
+  border-width: 2px;
+  max-width: min(clamp(480px, 50vmin, 900px), 78vw);
+  min-width: clamp(180px, 22vw, 260px);
+}
+
+.tv-mode .dialog-speaker {
+  font-size: clamp(15px, 1.8vmin, 32px);
+  margin-bottom: clamp(3px, 0.5vmin, 8px);
+  letter-spacing: 0.5px;
+}
+
+.tv-mode .dialog-bubble::after {
+  border-width: 9px 9px 0;
+  bottom: -9px;
+}
+
+.tv-mode .dialog-bubble.bubble-down::after {
+  border-width: 0 9px 9px;
+  top: -9px;
+  bottom: auto;
+}
+
+/* --- Birthday Letter Modal in TV Mode --- */
+.tv-mode .birthday-card {
+  max-width: min(880px, 90vw);
+  max-height: min(92vh, 820px);
+  border-width: 2.5px;
+}
+
+.tv-mode .btn-close-birthday {
+  width: clamp(38px, 4.4vmin, 52px);
+  height: clamp(38px, 4.4vmin, 52px);
+  font-size: clamp(24px, 3vmin, 32px);
+}
+
+.tv-mode .birthday-tag {
+  font-size: clamp(12px, 1.6vmin, 18px);
+  padding: clamp(4px, 0.7vh, 7px) clamp(12px, 1.8vw, 18px);
+}
+
+.tv-mode .birthday-title {
+  font-size: clamp(24px, 3.4vmin, 40px);
+}
+
+.tv-mode .birthday-subtitle {
+  font-size: clamp(13px, 1.8vmin, 20px);
+}
+
+.tv-mode .letter-scroll-box {
+  font-size: clamp(14.5px, 1.9vmin, 22px);
+  line-height: 1.65;
+  padding: clamp(16px, 2.4vh, 26px) clamp(18px, 2.6vw, 30px);
+  border-radius: clamp(14px, 2vmin, 20px);
+}
+
+.tv-mode .letter-greeting {
+  font-size: clamp(17px, 2.2vmin, 25px);
+  margin-bottom: 12px;
+}
+
+.tv-mode .milestone-row {
+  font-size: clamp(14px, 1.8vmin, 21px);
+  gap: 12px;
+}
+
+.tv-mode .m-icon {
+  font-size: clamp(17px, 2.2vmin, 26px);
+}
+
+.tv-mode .letter-climax {
+  font-size: clamp(15.5px, 2vmin, 23px);
+  margin-top: 14px;
+}
+
+.tv-mode .sig-text {
+  font-size: clamp(13px, 1.7vmin, 19px);
+}
+
+.tv-mode .sig-author {
+  font-size: clamp(16px, 2.2vmin, 24px);
+}
+
+.tv-mode .birthday-actions {
+  padding: clamp(12px, 1.8vh, 18px) clamp(18px, 3vw, 26px) clamp(14px, 2.2vh, 20px);
+  gap: clamp(10px, 1.6vmin, 16px);
+}
+
+.tv-mode .btn-blow-candles {
+  font-size: clamp(15px, 2vmin, 22px);
+  min-height: clamp(48px, 6.8vh, 62px);
+  padding: 10px 22px;
+}
+
+.tv-mode .btn-restart-timeline {
+  font-size: clamp(14px, 1.8vmin, 20px);
+  min-height: clamp(48px, 6.8vh, 62px);
+  padding: 10px 20px;
+}
+
+.tv-mode .wish-notification {
+  font-size: clamp(14px, 1.9vmin, 21px);
+  padding: 12px 22px;
+}
+
+/* --- Keepsake Photo Modal (Scene 01b) in TV Mode --- */
+.tv-mode .photo-card-container {
+  width: min(820px, 88vw, 138vh);
+  max-height: min(90vh, 680px);
+  padding: clamp(16px, 2.2vh, 24px) clamp(18px, 2.8vw, 30px);
+}
+
+.tv-mode .photo-close-btn {
+  width: clamp(38px, 4.4vmin, 52px);
+  height: clamp(38px, 4.4vmin, 52px);
+  font-size: clamp(22px, 2.8vmin, 30px);
+}
+
+.tv-mode .photo-card-tag {
+  font-size: clamp(12px, 1.6vmin, 18px);
+  padding: clamp(4px, 0.8vh, 7px) clamp(12px, 2vw, 18px);
+}
+
+.tv-mode .photo-viewport {
+  max-height: clamp(160px, 42vh, 380px);
+}
+
+.tv-mode .photo-caption-main {
+  font-size: clamp(18px, 2.4vmin, 28px);
+}
+
+.tv-mode .photo-caption-sub {
+  font-size: clamp(13.5px, 1.8vmin, 20px);
 }
 

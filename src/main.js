@@ -70,6 +70,85 @@ window.addEventListener('DOMContentLoaded', async () => {
     startScreen.classList.add('hidden');
   }
 
+  // Smart TV Mode detection & UI toggle
+  function initTvMode() {
+    const tvParam = urlParams.get('tv') || urlParams.get('mode');
+    let stored = null;
+    try {
+      stored = localStorage.getItem('tv_mode_enabled');
+    } catch (_) {
+      // LocalStorage access fallback
+    }
+
+    const ua = navigator.userAgent || '';
+    const isTvUA = /SmartTV|Tizen|webOS|NetCast|HbbTV|Android.*TV|BRAVIA|Viera|AppleTV|Roku|AFTT|AFTM|CrKey|Hisense|POV_TV|GoogleTV|Large Screen/i.test(ua);
+    const isTvMedia = window.matchMedia && window.matchMedia('(tv)').matches;
+
+    let isTv = false;
+    if (tvParam === '1' || tvParam === 'true' || tvParam === 'tv') {
+      isTv = true;
+    } else if (tvParam === '0' || tvParam === 'false') {
+      isTv = false;
+    } else if (stored !== null) {
+      isTv = stored === 'true';
+    } else if (isTvUA || isTvMedia) {
+      isTv = true;
+    }
+
+    const btnToggleTv = document.getElementById('btn-toggle-tv');
+
+    function applyTvMode(enabled) {
+      if (enabled) {
+        document.body.classList.add('tv-mode');
+        document.documentElement.classList.add('tv-mode');
+      } else {
+        document.body.classList.remove('tv-mode');
+        document.documentElement.classList.remove('tv-mode');
+      }
+
+      if (btnToggleTv) {
+        btnToggleTv.setAttribute('aria-pressed', String(enabled));
+        const stateEl = btnToggleTv.querySelector('.tv-toggle-state');
+        if (stateEl) {
+          stateEl.textContent = enabled ? 'Вкл' : 'Выкл';
+        }
+      }
+    }
+
+    applyTvMode(isTv);
+
+    if (btnToggleTv) {
+      btnToggleTv.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const nextState = !document.body.classList.contains('tv-mode');
+        try {
+          localStorage.setItem('tv_mode_enabled', String(nextState));
+        } catch (_) {}
+        applyTvMode(nextState);
+        if (window.soundManager) {
+          window.soundManager.playClick();
+        }
+      });
+    }
+
+    // Keyboard shortcut 'T' to toggle TV mode quickly (useful for Smart TV remotes / air mice / testing)
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 't' || e.key === 'T' || e.code === 'KeyT') {
+        if (document.activeElement && ['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
+        const nextState = !document.body.classList.contains('tv-mode');
+        try {
+          localStorage.setItem('tv_mode_enabled', String(nextState));
+        } catch (_) {}
+        applyTvMode(nextState);
+        if (window.soundManager) {
+          window.soundManager.playClick();
+        }
+      }
+    });
+  }
+
+  initTvMode();
+
   // 3. Initialize Game Engine
   const game = new GameApp();
   window.gameApp = game;

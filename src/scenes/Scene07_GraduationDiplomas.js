@@ -1,4 +1,4 @@
-import { Container, Graphics, Text, Rectangle, Sprite, Assets } from 'pixi.js';
+import { Container, Graphics, Rectangle, Sprite, Assets } from 'pixi.js';
 import * as TWEEN from '@tweenjs/tween.js';
 import { BaseScene } from './BaseScene.js';
 import { Character } from '../entities/Character.js';
