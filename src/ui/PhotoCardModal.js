@@ -15,9 +15,9 @@ export class PhotoCardModal {
     this.overlay.innerHTML = `
       <div class="photo-card-container">
         <button id="btn-close-photo" class="photo-close-btn" aria-label="Закрыть">&times;</button>
-        
+
         <div class="photo-card-header">
-          <span class="photo-card-tag"><span class="photo-tag-text">📸 СЕМЕЙНЫЙ АЛЬБОМ</span><span class="photo-tag-date"> • 1 СЕНТЯБРЯ 2009</span></span>
+          <span class="photo-card-tag"><span class="photo-tag-text">📸 СЕМЕЙНЫЙ АЛЬБОМ</span><span class="photo-tag-date"> • 1 СЕНТЯБРЯ 2010</span></span>
         </div>
 
         <div class="photo-card-frame">
@@ -42,7 +42,7 @@ export class PhotoCardModal {
         </div>
 
         <div class="photo-card-footer">
-          <div class="photo-caption-main">«1 сентября 2009, СЫЫР! 📸✨»</div>
+          <div class="photo-caption-main">«1 сентября 2010, СЫЫР! 📸✨»</div>
           <div class="photo-caption-sub">Лошницкая гимназия • Первый раз в первый класс</div>
         </div>
       </div>

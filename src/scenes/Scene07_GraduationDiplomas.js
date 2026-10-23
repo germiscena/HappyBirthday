@@ -31,8 +31,6 @@ export class Scene07_GraduationDiplomas extends BaseScene {
     this.addChild(this.particlesContainer);
   }
 
-
-
   async initUniversityBackdrop() {
     try {
       // Preload VSMU environment & graduate character models
@@ -42,7 +40,7 @@ export class Scene07_GraduationDiplomas extends BaseScene {
         Assets.load('/assets/characters/scene07_kristina.png'),
         Assets.load('/assets/characters/scene07_olesya.png'),
         Assets.load('/assets/characters/scene07_tanya.png'),
-        Assets.load('/assets/characters/scene07_anya.png')
+        Assets.load('/assets/characters/scene07_anya.png'),
       ]);
       const bgSprite = new Sprite(bgTexture);
       bgSprite.width = this.virtualWidth;
@@ -67,10 +65,10 @@ export class Scene07_GraduationDiplomas extends BaseScene {
       bounceDuration: 120,
       soundEffect: () => soundManager.playFountainSplash(),
       onTap: (e) => {
-        const gx = e?.global?.x ?? (this.virtualWidth / 2);
+        const gx = e?.global?.x ?? this.virtualWidth / 2;
         const gy = e?.global?.y ?? 395;
         this.spawnWaterSplashes(gx, gy);
-      }
+      },
     });
 
     this.addChild(this.fountainContainer);
@@ -88,7 +86,7 @@ export class Scene07_GraduationDiplomas extends BaseScene {
       y: groundY,
       width: 62,
       height: 125,
-      textureUrl: '/assets/characters/scene07_liza.png'
+      textureUrl: '/assets/characters/scene07_liza.png',
     });
     this.addChild(this.liza);
     this.characters.push(this.liza);
@@ -102,7 +100,7 @@ export class Scene07_GraduationDiplomas extends BaseScene {
       y: groundY,
       width: 60,
       height: 122,
-      textureUrl: '/assets/characters/scene07_kristina.png'
+      textureUrl: '/assets/characters/scene07_kristina.png',
     });
     this.addChild(this.kristina);
     this.characters.push(this.kristina);
@@ -116,7 +114,7 @@ export class Scene07_GraduationDiplomas extends BaseScene {
       y: groundY,
       width: 68,
       height: 138,
-      textureUrl: '/assets/characters/scene07_olesya.png'
+      textureUrl: '/assets/characters/scene07_olesya.png',
     });
     this.addChild(this.olesya);
     this.characters.push(this.olesya);
@@ -125,12 +123,12 @@ export class Scene07_GraduationDiplomas extends BaseScene {
     this.tanya = new Character({
       name: 'tanya',
       speakerTitle: 'Таня',
-      dialogueText: '«Стоматологический факультет ВГМУ, выпуск 2024! Мы лучшие и самые красивые! 🎉✨»',
+      dialogueText: '«Стоматологический факультет ВГМУ, выпуск 2026! Мы лучшие и самые красивые! 🎉✨»',
       x: 530,
       y: groundY,
       width: 61,
       height: 124,
-      textureUrl: '/assets/characters/scene07_tanya.png'
+      textureUrl: '/assets/characters/scene07_tanya.png',
     });
     this.addChild(this.tanya);
     this.characters.push(this.tanya);
@@ -144,7 +142,7 @@ export class Scene07_GraduationDiplomas extends BaseScene {
       y: groundY,
       width: 62,
       height: 125,
-      textureUrl: '/assets/characters/scene07_anya.png'
+      textureUrl: '/assets/characters/scene07_anya.png',
     });
     this.addChild(this.anya);
     this.characters.push(this.anya);
@@ -162,7 +160,7 @@ export class Scene07_GraduationDiplomas extends BaseScene {
     this.diplomaTossActive = true;
 
     // Spawn 5 flying blue diplomas with gold ribbons floating up into the air directly above each graduate
-    const diplomaXOffsets = this.characters.map(c => c.x);
+    const diplomaXOffsets = this.characters.map((c) => c.x);
     diplomaXOffsets.forEach((x, i) => {
       setTimeout(() => {
         const dip = new Graphics();
@@ -191,7 +189,7 @@ export class Scene07_GraduationDiplomas extends BaseScene {
                 if (i === diplomaXOffsets.length - 1) {
                   this.diplomaTossActive = false;
                 }
-              })
+              }),
           )
           .start();
 
@@ -211,7 +209,7 @@ export class Scene07_GraduationDiplomas extends BaseScene {
       color: 0xffffff,
       radiusMax: 4.5,
       spreadX: 120,
-      spreadY: 90
+      spreadY: 90,
     });
   }
 
@@ -225,16 +223,7 @@ export class Scene07_GraduationDiplomas extends BaseScene {
 
   spawnSparkle(x, y) {
     const sp = new Graphics();
-    sp.poly([
-      0, -5,
-      1.5, -1.5,
-      5, 0,
-      1.5, 1.5,
-      0, 5,
-      -1.5, 1.5,
-      -5, 0,
-      -1.5, -1.5
-    ]);
+    sp.poly([0, -5, 1.5, -1.5, 5, 0, 1.5, 1.5, 0, 5, -1.5, 1.5, -5, 0, -1.5, -1.5]);
     sp.fill({ color: 0xffd56b, alpha: 0.9 });
     sp.x = x;
     sp.y = y;
@@ -249,7 +238,7 @@ export class Scene07_GraduationDiplomas extends BaseScene {
 
   update(delta) {
     super.update(delta);
-    this.characters.forEach(c => c.update(delta));
+    this.characters.forEach((c) => c.update(delta));
 
     // Ambient floating water mist & sunlight sparkles
     if (Math.random() < 0.14) {

@@ -26,8 +26,6 @@ export class Scene05_MedicalUniversity extends BaseScene {
     this.initMedicalStudents();
   }
 
-
-
   async initUniversityBuilding() {
     try {
       const [bgTexture] = await Promise.all([
@@ -36,7 +34,7 @@ export class Scene05_MedicalUniversity extends BaseScene {
         Assets.load('/assets/characters/scene05_anya.png'),
         Assets.load('/assets/characters/scene05_olesya.png'),
         Assets.load('/assets/characters/scene05_liza.png'),
-        Assets.load('/assets/characters/scene05_kristina.png')
+        Assets.load('/assets/characters/scene05_kristina.png'),
       ]);
       const bgSprite = new Sprite(bgTexture);
       bgSprite.width = this.virtualWidth;
@@ -50,7 +48,6 @@ export class Scene05_MedicalUniversity extends BaseScene {
       this.parallaxContainer.addChild(bg);
     }
   }
-
 
   initFountain() {
     this.fountainContainer = new InteractiveObject({
@@ -74,10 +71,10 @@ export class Scene05_MedicalUniversity extends BaseScene {
           color: 0xffffff,
           radiusMax: 4,
           spreadX: 80,
-          spreadY: 60
+          spreadY: 60,
         });
         this.spawnMedBurst(this.fountainContainer.x, this.fountainContainer.y - 60, 8, ['🪙', '💦', '✨', '💧']);
-      }
+      },
     });
 
     this.addChild(this.fountainContainer);
@@ -93,12 +90,12 @@ export class Scene05_MedicalUniversity extends BaseScene {
       name: 'tanya',
       charType: 'tanya_med',
       speakerTitle: 'Таня',
-      dialogueText: '«Ура, девочки! Теперь мы официально будущие врачи! Впереди 6 лет учёбы, но вместе нам ничего не страшно! 💉📚»',
+      dialogueText: '«Ура, девочки! Теперь мы официально будущие врачи! Впереди 5 лет учёбы, но вместе нам ничего не страшно! 💉📚»',
       x: 335,
       y: 472,
       width: 66,
       height: 144,
-      textureUrl: '/assets/characters/scene05_tanya.png'
+      textureUrl: '/assets/characters/scene05_tanya.png',
     });
     this.setupMedStudentClick(this.tanya);
     this.studentsLayer.addChild(this.tanya);
@@ -115,7 +112,7 @@ export class Scene05_MedicalUniversity extends BaseScene {
       width: 66,
       height: 144,
       badgeOffsetY: -20,
-      textureUrl: '/assets/characters/scene05_anya.png'
+      textureUrl: '/assets/characters/scene05_anya.png',
     });
     this.setupMedStudentClick(this.anya);
     this.studentsLayer.addChild(this.anya);
@@ -131,7 +128,7 @@ export class Scene05_MedicalUniversity extends BaseScene {
       y: 472,
       width: 76,
       height: 162,
-      textureUrl: '/assets/characters/scene05_olesya.png'
+      textureUrl: '/assets/characters/scene05_olesya.png',
     });
     this.setupMedStudentClick(this.olesya, true);
     this.studentsLayer.addChild(this.olesya);
@@ -148,7 +145,7 @@ export class Scene05_MedicalUniversity extends BaseScene {
       width: 66,
       height: 144,
       badgeOffsetY: -20,
-      textureUrl: '/assets/characters/scene05_liza.png'
+      textureUrl: '/assets/characters/scene05_liza.png',
     });
     this.setupMedStudentClick(this.liza);
     this.studentsLayer.addChild(this.liza);
@@ -164,7 +161,7 @@ export class Scene05_MedicalUniversity extends BaseScene {
       y: 472,
       width: 66,
       height: 144,
-      textureUrl: '/assets/characters/scene05_kristina.png'
+      textureUrl: '/assets/characters/scene05_kristina.png',
     });
     this.setupMedStudentClick(this.kristina);
     this.studentsLayer.addChild(this.kristina);
@@ -193,7 +190,7 @@ export class Scene05_MedicalUniversity extends BaseScene {
       symbols,
       spreadX: 55,
       spreadY: 65,
-      duration: 1200
+      duration: 1200,
     });
   }
 
@@ -207,7 +204,7 @@ export class Scene05_MedicalUniversity extends BaseScene {
 
   update(delta) {
     super.update(delta);
-    this.characters.forEach(c => c.update(delta));
+    this.characters.forEach((c) => c.update(delta));
 
     // Ambient sparkles around the medical student group
     this.sparkleTimer += delta;
